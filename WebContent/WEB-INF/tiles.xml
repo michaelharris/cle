@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<definition name="defaultTemplate" template="/templates/template.jsp">
+		<put-attribute name="header" value="/templates/header.jsp" />
+		<put-attribute name="menu" value="/templates/menu.jsp" />
+		<put-attribute name="footer" value="/templates/footer.jsp" />
+	</definition>
+
+	<definition name="empty" template="/templates/empty.jsp">
+	</definition>
+	<definition name="simple" template="/templates/simple.jsp">
+
+	</definition>
+	<!-- <definition name="searchBook" extends="defaultTemplate"> <put-attribute 
+		name="body" value="/WEB-INF/home_body" />change this </definition> -->
+
+	<definition name="/iframe/*" extends="empty">
+		<put-attribute name="body" value="/WEB-INF/iframe/{1}.jsp" />
+	</definition>
+	<definition name="/feeds/*" extends="empty">
+		<put-attribute name="body" value="/WEB-INF/feeds/{1}.jsp" />
+	</definition>
+	<definition name="/error_plain/*" extends="simple">
+		<put-attribute name="body" value="/WEB-INF/error_plain/{1}.jsp" />
+	</definition>
+	<definition name="*/*" extends="defaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+	<definition name="/admin/*/*" extends="defaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/{1}/{2}.jsp" />
+	</definition>
+	<definition name="/resource/*/*" extends="defaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/jsp/resource/{1}/{2}.jsp" />
+	</definition>
+
+</tiles-definitions>

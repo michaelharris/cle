@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="collection" match-catalog="cle"></table-filter>
+	<table-filter match-name="collection_has_resource"
+		match-catalog="cle">
+	</table-filter>
+	<table-filter match-name="comment" match-catalog="cle"></table-filter>
+	<table-filter match-name="module" match-catalog="cle"></table-filter>
+	<table-filter match-name="module_has_collection"
+		match-catalog="cle">
+	</table-filter>
+	<table-filter match-name="module_has_user" match-catalog="cle"></table-filter>
+	<table-filter match-name="resource" match-catalog="cle"></table-filter>
+	<table-filter match-name="role" match-catalog="cle"></table-filter>
+	<table-filter match-name="user" match-catalog="cle"></table-filter>
+</hibernate-reverse-engineering>

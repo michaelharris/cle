@@ -1,0 +1,22 @@
+/* TABLES */
+table.admin {
+	border: 1px solid #c3c3c3;
+	border-collapse: collapse;
+}
+
+table.admin th {
+	background-color: #e5eecc;
+	border: 1px solid #c3c3c3;
+	padding: 3px;
+	vertical-align: top;
+}
+
+table.admin td {
+	border: 1px solid #c3c3c3;
+	padding: 3px;
+	vertical-align: top;
+}
+
+table {
+	margin: 1em;
+	}

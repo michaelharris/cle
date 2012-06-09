@@ -1,0 +1,304 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+DROP SCHEMA IF EXISTS `cle` ;
+CREATE SCHEMA IF NOT EXISTS `cle` DEFAULT CHARACTER SET latin1 ;
+USE `cle` ;
+
+-- -----------------------------------------------------
+-- Table `cle`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`user` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`user` (
+  `userid` INT NOT NULL AUTO_INCREMENT ,
+  `email` VARCHAR(60) NOT NULL ,
+  `password` VARCHAR(45) NOT NULL ,
+  `firstName` VARCHAR(45) NOT NULL ,
+  `lastName` VARCHAR(45) NOT NULL ,
+  `courseType` VARCHAR(45) NULL ,
+  `image` BLOB NULL ,
+  `description` TEXT NULL ,
+  `enabled` TINYINT NULL ,
+  PRIMARY KEY (`userid`) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`resource`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`resource` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`resource` (
+  `resourceid` INT NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(45) NOT NULL ,
+  `fileLocation` VARCHAR(45) NULL ,
+  `tags` TEXT NOT NULL ,
+  `description` TEXT NOT NULL ,
+  `content` LONGTEXT NULL ,
+  `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `created` TIMESTAMP NULL ,
+  `visibility` INT NULL DEFAULT 1 ,
+  `author` INT NOT NULL ,
+  PRIMARY KEY (`resourceid`) ,
+  INDEX `fk_resource_1` (`author` ASC) ,
+  CONSTRAINT `fk_resource_1`
+    FOREIGN KEY (`author` )
+    REFERENCES `cle`.`user` (`userid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`collection`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`collection` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`collection` (
+  `collectionid` INT NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(45) NOT NULL ,
+  `author` INT NOT NULL ,
+  `created` TIMESTAMP NULL ,
+  `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `description` TEXT NULL ,
+  `visibility` INT NULL ,
+  PRIMARY KEY (`collectionid`) ,
+  INDEX `fk_collection_1` (`author` ASC) ,
+  CONSTRAINT `fk_collection_1`
+    FOREIGN KEY (`author` )
+    REFERENCES `cle`.`user` (`userid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`module`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`module` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`module` (
+  `moduleid` INT NOT NULL AUTO_INCREMENT ,
+  `tags` TEXT NULL ,
+  `description` VARCHAR(45) NULL ,
+  `title` VARCHAR(45) NULL ,
+  `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `created` TIMESTAMP NULL ,
+  PRIMARY KEY (`moduleid`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`page`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`page` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`page` (
+  `pageid` INT NOT NULL AUTO_INCREMENT ,
+  `resourceid` INT NOT NULL ,
+  `pagenumber` INT NOT NULL ,
+  `title` VARCHAR(45) NULL ,
+  `content` LONGTEXT NULL ,
+  `tags` TEXT NULL ,
+  `modified` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `visibility` INT NULL ,
+  PRIMARY KEY (`pageid`) ,
+  INDEX `fk_page_resource1` (`resourceid` ASC) ,
+  CONSTRAINT `fk_page_resource1`
+    FOREIGN KEY (`resourceid` )
+    REFERENCES `cle`.`resource` (`resourceid` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`comment` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`comment` (
+  `commentid` INT NOT NULL AUTO_INCREMENT ,
+  `userid` INT NOT NULL ,
+  `resourceid` INT NULL DEFAULT NULL ,
+  `collectionid` INT NULL DEFAULT NULL ,
+  `moduleid` INT NULL DEFAULT NULL ,
+  `elementid` INT NULL ,
+  `commentparentid` INT NULL ,
+  `pageid` INT NULL ,
+  `location` VARCHAR(45) NULL ,
+  `commenttext` TEXT NOT NULL ,
+  `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `created` TIMESTAMP NULL ,
+  `visibility` INT NULL ,
+  PRIMARY KEY (`commentid`) ,
+  INDEX `userid` (`userid` ASC) ,
+  INDEX `resource` (`resourceid` ASC) ,
+  INDEX `collection` (`collectionid` ASC) ,
+  INDEX `module` (`moduleid` ASC) ,
+  INDEX `page` (`pageid` ASC) ,
+  INDEX `fk_comment_comment1` (`commentparentid` ASC) ,
+  CONSTRAINT `userid`
+    FOREIGN KEY (`userid` )
+    REFERENCES `cle`.`user` (`userid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `resource`
+    FOREIGN KEY (`resourceid` )
+    REFERENCES `cle`.`resource` (`resourceid` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `collection`
+    FOREIGN KEY (`collectionid` )
+    REFERENCES `cle`.`collection` (`collectionid` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `module`
+    FOREIGN KEY (`moduleid` )
+    REFERENCES `cle`.`module` (`moduleid` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `page`
+    FOREIGN KEY (`pageid` )
+    REFERENCES `cle`.`page` (`pageid` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_comment_comment1`
+    FOREIGN KEY (`commentparentid` )
+    REFERENCES `cle`.`comment` (`commentid` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`module_has_collection`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`module_has_collection` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`module_has_collection` (
+  `module_moduleid` INT NOT NULL ,
+  `collection_collectionid` INT NOT NULL ,
+  PRIMARY KEY (`module_moduleid`, `collection_collectionid`) ,
+  INDEX `fk_module_has_collection_collection1` (`collection_collectionid` ASC) ,
+  CONSTRAINT `fk_module_has_collection_module1`
+    FOREIGN KEY (`module_moduleid` )
+    REFERENCES `cle`.`module` (`moduleid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_module_has_collection_collection1`
+    FOREIGN KEY (`collection_collectionid` )
+    REFERENCES `cle`.`collection` (`collectionid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`collection_has_resource`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`collection_has_resource` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`collection_has_resource` (
+  `collection_collectionid` INT NOT NULL ,
+  `resource_resourceid` INT NOT NULL ,
+  PRIMARY KEY (`collection_collectionid`, `resource_resourceid`) ,
+  INDEX `fk_collection_has_resource_resource1` (`resource_resourceid` ASC) ,
+  CONSTRAINT `fk_collection_has_resource_collection1`
+    FOREIGN KEY (`collection_collectionid` )
+    REFERENCES `cle`.`collection` (`collectionid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_collection_has_resource_resource1`
+    FOREIGN KEY (`resource_resourceid` )
+    REFERENCES `cle`.`resource` (`resourceid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`module_has_user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`module_has_user` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`module_has_user` (
+  `module_moduleid` INT NOT NULL ,
+  `user_userid` INT NOT NULL ,
+  PRIMARY KEY (`module_moduleid`, `user_userid`) ,
+  INDEX `fk_module_has_user_user1` (`user_userid` ASC) ,
+  CONSTRAINT `fk_module_has_user_module1`
+    FOREIGN KEY (`module_moduleid` )
+    REFERENCES `cle`.`module` (`moduleid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_module_has_user_user1`
+    FOREIGN KEY (`user_userid` )
+    REFERENCES `cle`.`user` (`userid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`role` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`role` (
+  `roleid` INT NOT NULL AUTO_INCREMENT ,
+  `rolename` VARCHAR(45) NULL ,
+  PRIMARY KEY (`roleid`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`user_has_role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`user_has_role` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`user_has_role` (
+  `user_userid` INT NOT NULL ,
+  `role_roleid` INT NOT NULL ,
+  PRIMARY KEY (`user_userid`, `role_roleid`) ,
+  INDEX `fk_user_has_role_role1` (`role_roleid` ASC) ,
+  CONSTRAINT `fk_user_has_role_user1`
+    FOREIGN KEY (`user_userid` )
+    REFERENCES `cle`.`user` (`userid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_role_role1`
+    FOREIGN KEY (`role_roleid` )
+    REFERENCES `cle`.`role` (`roleid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cle`.`image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cle`.`image` ;
+
+CREATE  TABLE IF NOT EXISTS `cle`.`image` (
+  `imageid` INT NOT NULL AUTO_INCREMENT ,
+  `resourceid` INT NOT NULL ,
+  `imagename` VARCHAR(45) NULL ,
+  `imagedata` LONGBLOB NULL ,
+  PRIMARY KEY (`imageid`) ,
+  INDEX `fk_image_1` (`resourceid` ASC) ,
+  CONSTRAINT `fk_image_1`
+    FOREIGN KEY (`resourceid` )
+    REFERENCES `cle`.`resource` (`resourceid` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

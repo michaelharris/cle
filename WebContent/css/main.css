@@ -1,0 +1,344 @@
+html {
+	height: 100%;
+	font-family: Verdana;
+	color: #444;
+}
+
+html .fb_share_button {
+	display: -moz-inline-block;
+	display: inline-block;
+	padding: 1px 20px 0 5px;
+	height: 15px;
+	border: 1px solid #d8dfea;
+	background:
+		url(http://static.ak.facebook.com/images/share/facebook_share_icon.gif?6:26981)
+		no-repeat top right;
+}
+
+html .fb_share_button:hover {
+	color: #fff;
+	border-color: #295582;
+	background: #3b5998
+		url(http://static.ak.facebook.com/images/share/facebook_share_icon.gif?6:26981)
+		no-repeat top right;
+	text-decoration: none;
+}
+
+
+#tabs {
+	font-size: 0.9em;
+}
+
+body {
+	height: 100%;
+	font-size: 12px;
+	color: #000000;
+	margin: 0px;
+	overflow: auto;
+}
+
+table.admin {
+	margin: 2em;
+}
+
+p {
+	font-family: Verdana;
+}
+
+iframe {
+	border: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+#iframeDiv {
+	overflow: hidden;
+}
+
+a {
+	color: #547C99;
+	text-decoration: none;
+}
+
+#selected {
+	border: 2px;
+	border-style: solid;
+	border-color: green;
+	margin: 15px;
+	min-height: 4em;
+}
+
+#resourceView {
+	height: 100%;
+	margin-bottom: 30px;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #eee;
+	clear: both;
+	height: 0;
+	margin: 0;
+}
+
+h2 {
+	color: #2779AA;
+	font-size: 14px;
+	font-weight: normal;
+	margin-bottom: 5px;
+}
+
+h3 {
+	color: #2779AA;
+	font-size: 12px;
+	margin-bottom: 20px;
+}
+
+p {
+	padding: 0.5em;
+}
+
+h4,h5 {
+	color: #3f5c26;
+	font-size: 1em;
+}
+
+h3 span,h4 span,h5 span {
+	font-weight: normal;
+}
+
+#top {
+	min-height: 40px;
+	padding-top: 5px;
+	/* http://www.colorzilla.com/gradient-editor*/
+	background: #1E5799; /* old browsers */
+	background: -moz-linear-gradient(top, #1E5799 0%, #2989D8 50%, #207cca 51%, #7db9e8
+		100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1E5799),
+		color-stop(50%, #2989D8), color-stop(51%, #207cca),
+		color-stop(100%, #7db9e8) ); /* webkit */
+	filter: progid : DXImageTransform.Microsoft.gradient (   startColorstr =
+		'#1E5799', endColorstr = '#7db9e8', GradientType = 0 );
+} /* ie */
+#top a {
+	color: #FFFFFF;
+}
+
+#top h1 {
+	color: #2B4281;
+	text-align: center;
+	font-size: 1.5em;
+	text-shadow: 2px 2px 2px #333;
+}
+
+.buttons {
+	text-align: right;
+	text-shadow: 2px 2px 2px #333;
+}
+
+#menu_primary li a:hover {
+	background: none repeat scroll 0 0 #AFB2B6;
+	color: #FFF;
+}
+
+#menu_primary a {
+	padding: 10px 18px 10px 10px;
+	text-decoration: none;
+}
+
+#menu_primary li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+
+#menu_primary {
+	height: 30px;
+}
+
+#contentwrapper ul p {
+	font-size: 13px;
+}
+
+#content {
+	height: 100%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+#comments {
+	float: right;
+	min-width: 150px;
+}
+
+#navigation {
+	
+}
+
+#pagewrapper {
+	height: 100%;
+}
+
+#contentwrapper {
+	height: 100%;
+	/*background: #fff url("../images/bg_content.png") top center repeat-x;*/
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.07, rgb(252
+		, 253, 255) ), color-stop(1, rgb(240, 245, 250) ) );
+	background-image: -moz-linear-gradient(center bottom, rgb(252, 253, 255)
+		7%, rgb(240, 245, 250) 100% );
+	padding-top: 2em;
+	min-height: 300px;
+	background-color: FFF;
+}
+
+#content li {
+	padding-bottom: 0.5em;
+}
+
+#content ul {
+	padding-left: 20px;
+}
+
+/*
+*Comment Stuff
+*/
+.commentContainer {
+	padding: 4px;
+	background: #F3F9FF;
+	margin: 5px;
+	border: solid;
+	border-color: #DBE0E6;
+	border-width: 1px;
+}
+#commentStream a{
+	color: #2779AA;
+	}
+.commentMouseOver {
+	background: #C9F0FF;
+}
+
+.commentHead {
+	color: black;
+}
+
+.commentText {
+	color: black;
+	margin: 2px;
+}
+
+.subComment {
+	margin: 0.5em;
+	margin-left: 1em;
+}
+
+.subCommentInfo {
+	margin: 3px;
+}
+
+.timestamp {
+	text-align: right;
+}
+
+.commentDelete {
+	float: right;
+}
+
+.light {
+	color: #666666;
+	font-size: 0.8em;
+}
+
+/*
+*Feed Stuff
+*/
+.feedItem {
+	padding: 4px;
+	background: #F3F9FF;
+	margin: 5px;
+	border: solid;
+	border-color: #DBE0E6;
+	border-width: 1px;
+}
+
+.delete {
+	float: right;
+}
+
+/*
+*CSS for boxes and their shadows
+*
+*/
+.box { /*border: 1px solid #eee;
+	padding: 0.5em;*/
+	margin-left: -1px;
+	margin-right: -1px;
+	margin-bottom: 20px;
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	background-color: #FFFFFF;
+	padding-bottom: 1em;
+	overflow: hidden;
+}
+.box h1{
+	margin-bottom: 1em;
+	}
+.shadow {
+	-moz-box-shadow: 3px 3px 4px #AFB2B6;
+	-webkit-box-shadow: 3px 3px 4px #AFB2B6;
+	box-shadow: 3px 3px 4px #AFB2B6;
+	/* For IE 8 */
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#AFB2B6')";
+	/* For IE 5.5 - 7 */
+	filter: progid :     DXImageTransform.Microsoft.Shadow (     Strength =
+		    4, Direction =     135, Color =     '#AFB2B6' );
+}
+
+.extrashadow {
+	-moz-box-shadow: 4px 4px 5px #AFB2B6;
+	-webkit-box-shadow: 4px 4px 5px #AFB2B6;
+	box-shadow: 4px 4px 5px #AFB2B6;
+	/* For IE 8 */
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#AFB2B6')";
+	/* For IE 5.5 - 7 */
+	filter: progid :     DXImageTransform.Microsoft.Shadow (     Strength =
+		    5, Direction =     135, Color =     '#AFB2B6' );
+}
+
+.mouseOver:hover {
+	background: #C9F0FF;
+}
+
+.box h1 {
+	font-size: 1em;
+	font-weight: normal;
+	text-transform: uppercase;
+	color: #fff;
+	background: #3b679e; /* old browsers */
+	background: -moz-linear-gradient(top, #3b679e 0%, #2b88d9 50%, #207cca 51%, #7db9e8
+		100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3b679e),
+		color-stop(50%, #2b88d9), color-stop(51%, #207cca),
+		color-stop(100%, #7db9e8) ); /* webkit */
+	filter: progid : DXImageTransform.Microsoft.gradient (   startColorstr =
+		'#3b679e', endColorstr = '#7db9e8', GradientType = 0 ); /* ie */
+	padding: 6px 20px;
+	text-shadow: 2px 2px 2px #333;
+	-moz-border-radius: 7px 7px 0px 0px;
+	-webkit-border-radius: 7px 7px 0px 0px;
+	border-radius: 7px 7px 0px 0px;
+}
+
+.box h2 {
+	font-size: 1em;
+	font-weight: normal;
+	color: #333;
+	padding: 0.5em;
+}
+
+.box ul {
+	padding: 1em;
+	list-style: square;
+}

@@ -1,0 +1,39 @@
+/*
+* Common resource CSS file
+*
+*/
+
+.selected {
+	background: #BEF781;
+	
+	}
+	
+	.commentMouseOver{
+
+border-color: #C9F0FF;
+border-style: dashed;
+border-width: 3px;
+
+	}
+	
+	.green{
+	
+	background: purple;
+	
+	}
+
+	#10{
+		transform-origin: top left;
+
+-moz-transform-origin: top left;
+
+-webkit-transform-origin: top left;
+	
+	}
+	
+	object{
+	width: 90%;
+	height:400px;
+}
+	
+	

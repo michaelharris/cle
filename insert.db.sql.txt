@@ -1,0 +1,29 @@
+INSERT INTO `user` (`userid`, `email`, `password`, `firstName`, `lastName`, `courseType`, `image`, `description`, `enabled`) VALUES
+(1, 'email', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Michael', 'Harris', NULL, NULL, NULL, NULL),
+(2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin', 'user', NULL, NULL, NULL, NULL);
+-- Login Details.
+-- email - pass
+-- admin - admin
+
+INSERT INTO `cle`.`role` (
+`roleid` ,
+`rolename`
+)
+VALUES (
+NULL , 'ROLE_USER'
+), (
+NULL , 'ROLE_ADMIN'
+);
+
+INSERT INTO `cle`.`user_has_role` (
+`user_userid` ,
+`role_roleid`
+)
+VALUES (
+'1', '1'
+), (
+'2', '1'
+), (
+'2', '2'
+);
+
